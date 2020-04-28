@@ -12,7 +12,7 @@ from collections import deque
 from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
-from crontab_script.jira_daiy_defect_2redis import jira_daily_defects_2redis
+from JIRA脚本.jira_daiy_defect_2redis import jira_daily_defects_2redis
 import smtplib
 import nacos
 import yaml
