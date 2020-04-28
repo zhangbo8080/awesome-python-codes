@@ -1,0 +1,811 @@
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link href="https://cdn.bootcss.com/bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/2.3.1/js/bootstrap.min.js"></script>
+
+	<title></title>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3>
+				项目 {{board_name}}
+			</h3>
+		</div>
+	</div>
+	<br>
+	{% if defect_date_count %}
+	<div class="row-fluid">
+		<div class="span5">
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						日期
+					</th>
+					<th>
+						新创建BUG数
+					</th>
+					<th>
+						修复BUG数
+					</th>
+					<th>
+						开启中BUG数
+					</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in defect_date_count %}
+				<tr class="error">
+					<td>
+						{{issue.date}}
+					</td>
+					<td>
+						{{issue.a_created_inday}}
+					</td>
+					<td>
+						{{issue.a_resolved_inday}}
+					</td>
+					<td>
+						{{issue.a_opening}}
+					</td>
+
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if defect_date_detail %}
+	<div class="row-fluid">
+		<div class="span8">
+			<p>
+				<strong> 各组需要处理的BUG数</strong>
+			</p>
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+
+					<th>
+						日期
+					</th>
+<!--					<th>-->
+<!--						Android组-->
+<!--					</th>-->
+<!--					<th>-->
+<!--						iOS组-->
+<!--					</th>-->
+					<th>
+						H5组
+					</th>
+<!--					<th>-->
+<!--						核心组-->
+<!--					</th>-->
+<!--					<th>-->
+<!--						私信组-->
+<!--					</th>-->
+<!--					<th>-->
+<!--						OP后台-->
+<!--					</th>-->
+<!--					<th>-->
+<!--						数据组-->
+<!--					</th>-->
+					<th>
+						审核组
+					</th>
+					<th>
+						测试组
+					</th>
+					<th>
+						产品组
+					</th>
+<!--					<th>-->
+<!--						设计组-->
+<!--					</th>-->
+					<th>
+						项目组
+					</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in defect_date_detail %}
+				<tr class="error">
+					<td>
+						{{issue.date}}
+					</td>
+<!--					<td>-->
+<!--						{{issue.issues_android}}-->
+<!--					</td>-->
+<!--					<td>-->
+<!--						{{issue.issues_iOS}}-->
+<!--					</td>-->
+					<td>
+						{{issue.issues_H5}}
+					</td>
+<!--					<td>-->
+<!--						{{issue.issues_server}}-->
+<!--					</td>-->
+<!--					<td>-->
+<!--						{{issue.issues_dm}}-->
+<!--					</td>-->
+<!--					<td>-->
+<!--						{{issue.issues_OP}}-->
+<!--					</td>-->
+<!--					<td>-->
+<!--						{{issue.issues_data}}-->
+<!--					</td>-->
+					<td>
+						{{issue.issues_audit}}
+					</td>
+					<td>
+						{{issue.issues_test}}
+					</td>
+					<td>
+						{{issue.issues_pm}}
+					</td>
+<!--					<td>-->
+<!--						{{issue.issues_ux}}-->
+<!--					</td>-->
+					<td>
+						{{issue.issues_project}}
+					</td>
+
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_android %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<h4>下面是未解决的BUG列表</h4>(点击编号可以跳到对应的JIRA页面)<br><br>
+				<strong>Android组未解决Bug {{issues_android|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_android %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_iOS %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>iOS组未解决Bug {{issues_iOS|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_iOS %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_server %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>核心服务组未解决Bug {{issues_server|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_server %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_dm %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>私信服务组未解决Bug {{issues_dm|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_dm %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_OP %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>OP组未解决Bug {{issues_OP|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_OP %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_H5 %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>H5组未解决Bug {{issues_H5|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_H5 %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_data %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>数据组未解决Bug {{issues_data|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_data %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_audit %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>审核组未解决Bug {{issues_audit|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_audit %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_test %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>测试组需要确认的Bug {{issues_test|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_test %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_pm %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>产品组需要确认的Bug {{issues_pm|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_pm %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_ux %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>设计组需要确认的Bug {{issues_ux|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_ux %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	{% if issues_project %}
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				<strong>需要项目组推进的Bug {{issues_project|length}} 个</strong>
+			</p>
+
+			<table border="1" cellpadding="0" cellspacing="0" rules = "all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th>
+						编号
+					</th>
+					<th>
+						标题
+					</th>
+					<th>
+						优先级
+					</th>
+					<th>
+						经办人
+					</th>
+					<th>
+						创建时间
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for issue in issues_project %}
+				<tr class="error">
+					<td>
+						<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+					</td>
+					<td>
+						{{issue.fields.summary}}
+					</td>
+					<td>
+						{{issue.fields.priority}}
+					</td>
+					<td>
+						{{issue.fields.assignee}}
+					</td>
+					<td>
+						{{issue.fields.created|datetime}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
+	<p><strong>其他组当前没有未解决的Bug</strong></p>
+	<br>
+	<br>
+</div>
+</body>
+</html>

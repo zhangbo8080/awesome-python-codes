@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link href="https://cdn.bootcss.com/bootstrap/2.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/bootstrap/2.3.1/js/bootstrap.min.js"></script>
+
+  <title></title>
+  </head>
+  <body>
+    <div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<h3>
+				 {{board_name}}3天未解决的BUG列表
+			</h3>
+		</div>
+	</div>
+	<br>
+
+	<br>
+	<div class="row-fluid">
+		<div class="span12">
+			<p>
+				超过3天的未解决Bug {{issues_3d|length}}个
+			</p>
+            {% if issues_3d %}
+			<table   border="1" cellpadding="2" cellspacing="0"  class="table table-striped">
+				<thead>
+					<tr>
+						<th>
+							编号
+						</th>
+						<th>
+							标题
+						</th>
+						<th>
+							经办人
+						</th>
+						<th>
+							创建时间
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+                {% for issue in issues_3d %}
+					<tr class="error">
+						<td>
+							<a href="http://jira.sohuno.com/browse/{{issue.key}}"><u>{{issue.key}}</u></a>
+						</td>
+						<td>
+							{{issue.fields.summary}}
+						</td>
+						<td>
+							{{issue.fields.assignee}}
+						</td>
+						<td>
+							{{issue.fields.created|datetime}}
+						</td>
+					</tr>
+                {% endfor %}
+				</tbody>
+			</table>
+            {% else %}
+
+            <p>
+                无
+            </p>
+            {% endif %}
+		</div>
+	</div>
+    <br>
+
+    <br>
+
+  </div>
+  </body>
+</html>
