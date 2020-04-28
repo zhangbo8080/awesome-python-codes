@@ -18,8 +18,6 @@ import nacos
 import yaml
 
 
-
-
 # 从nacos获取日报配置
 def get_daily_report_config():
     SERVER_ADDRESSES = "op-test.sns.sohuno.com:80"
