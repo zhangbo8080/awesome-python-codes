@@ -3,24 +3,33 @@
   <component name="ChangeListManager">
     <list default="true" id="719dd21b-8522-4425-8b12-d22a51426bb2" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/JIRA脚本/nacos-data/snapshot/daily_report_config+DEFAULT_GROUP+9eae126d-3501-4100-b577-baa2eaeed8ea" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/临时调试类脚本/sample1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/临时调试类脚本/sample2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/临时调试类脚本/sample3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/临时调试类脚本/sample4.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/临时调试类脚本/sample5.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/临时调试类脚本/sample6.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/定时任务/H5_monitor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/定时任务/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/定时任务/jira_daily_report_crontab.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/定时任务/jira_daiy_defect_2redis.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/定时任务/mailcontent_daily_report.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/工具类脚本/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/测试类脚本/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AndroidAppTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/测试类脚本/AndroidAppTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI输入和弹窗.py" beforeDir="false" afterPath="$PROJECT_DIR$/工具类脚本/GUI输入和弹窗.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI页面.py" beforeDir="false" afterPath="$PROJECT_DIR$/工具类脚本/GUI页面.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JIRA脚本/jira_submit_CR.py" beforeDir="false" afterPath="$PROJECT_DIR$/JIRA脚本/jira_submit_CR.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/androidGitScan.py" beforeDir="false" afterPath="$PROJECT_DIR$/测试类脚本/androidGitScan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/getJenkinsBuild.py" beforeDir="false" afterPath="$PROJECT_DIR$/工具类脚本/getJenkinsBuild.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log分析脚本.py" beforeDir="false" afterPath="$PROJECT_DIR$/测试类脚本/log分析脚本.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monkey测试脚本.py" beforeDir="false" afterPath="$PROJECT_DIR$/测试类脚本/monkey测试脚本.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nacos_script.py" beforeDir="false" afterPath="$PROJECT_DIR$/工具类脚本/nacos_script.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sendWeixinMSG.py" beforeDir="false" afterPath="$PROJECT_DIR$/工具类脚本/sendWeixinMSG.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unitTest脚本.py" beforeDir="false" afterPath="$PROJECT_DIR$/测试类脚本/unitTest脚本.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webSocketConnectScript.py" beforeDir="false" afterPath="$PROJECT_DIR$/工具类脚本/webSocketConnectScript.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -143,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588074854200</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="增加调试脚本包，业务监控脚本包">
+      <created>1588850257562</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1588850257562</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -151,13 +167,14 @@
     <MESSAGE value="初始化codes" />
     <MESSAGE value="增加必要的脚本文件" />
     <MESSAGE value="格式化代码" />
-    <option name="LAST_COMMIT_MESSAGE" value="格式化代码" />
+    <MESSAGE value="增加调试脚本包，业务监控脚本包" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加调试脚本包，业务监控脚本包" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="491" y="0" key="CommitChangelistDialog2" timestamp="1588074852603">
+    <state x="491" y="0" key="CommitChangelistDialog2" timestamp="1588850256094">
       <screen x="0" y="0" width="1920" height="999" />
     </state>
-    <state x="491" y="0" key="CommitChangelistDialog2/0.0.1920.999@0.0.1920.999" timestamp="1588074852603" />
+    <state x="491" y="0" key="CommitChangelistDialog2/0.0.1920.999@0.0.1920.999" timestamp="1588850256094" />
     <state x="687" y="196" key="FileChooserDialogImpl" timestamp="1588844493723">
       <screen x="0" y="0" width="1920" height="999" />
     </state>
@@ -186,17 +203,17 @@
       <screen x="0" y="0" width="1920" height="999" />
     </state>
     <state width="1894" height="244" key="GridCell.Tab.0.right/0.0.1920.999@0.0.1920.999" timestamp="1588849859019" />
-    <state x="452" y="168" key="Vcs.Push.Dialog.v2" timestamp="1588074855666">
+    <state x="452" y="168" key="Vcs.Push.Dialog.v2" timestamp="1588850258765">
       <screen x="0" y="0" width="1920" height="999" />
     </state>
-    <state x="452" y="168" key="Vcs.Push.Dialog.v2/0.0.1920.999@0.0.1920.999" timestamp="1588074855666" />
+    <state x="452" y="168" key="Vcs.Push.Dialog.v2/0.0.1920.999@0.0.1920.999" timestamp="1588850258765" />
     <state x="92" y="92" width="1736" height="815" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1588073274546">
       <screen x="0" y="0" width="1920" height="999" />
     </state>
     <state x="92" y="92" width="1736" height="815" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.999@0.0.1920.999" timestamp="1588073274546" />
-    <state x="556" y="243" key="git4idea.merge.GitPullDialog" timestamp="1588845669343">
+    <state x="556" y="243" key="git4idea.merge.GitPullDialog" timestamp="1588852093203">
       <screen x="0" y="0" width="1920" height="999" />
     </state>
-    <state x="556" y="243" key="git4idea.merge.GitPullDialog/0.0.1920.999@0.0.1920.999" timestamp="1588845669343" />
+    <state x="556" y="243" key="git4idea.merge.GitPullDialog/0.0.1920.999@0.0.1920.999" timestamp="1588852093203" />
   </component>
 </project>

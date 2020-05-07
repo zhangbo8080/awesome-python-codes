@@ -30,7 +30,7 @@ if '__main__' == __name__:
 
     project_list = ["HUYOUANDROID","HUYOUIOS"]
 
-    summary = "链接类大小卡片优化 - UI验收"
+    summary = "涂脂抹粉 - UI验收"
 
     for project in project_list:
         submit_cr(project, summary)
