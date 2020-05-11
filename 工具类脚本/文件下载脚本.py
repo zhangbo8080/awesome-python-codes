@@ -4,9 +4,6 @@
 
 import requests
 import wget
-import os
-from time import time
-from multiprocessing.pool import ThreadPool
 
 
 class FileDownload:
