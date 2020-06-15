@@ -6,14 +6,16 @@ url = "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=882c197f-5396-426f-8
 
 ua = "Content-Type:application/json"
 
-file_path = "D:/sample.json"
+file_path = "/Users/sohu/Documents/sample.json"
 
-# content_json = {
-#     "msgtype": "text",
-#     "text": {
-#         "content": "hello world"
-#     }
-# }
+content_json = {
+    "msgtype": "text",
+    "text": {
+        "content": "记得写日报！！！\nhttp://confluence.sohuno.com/pages/viewpage.action?pageId=49104211",
+        "mentioned_list": ["@all"],
+
+    }
+}
 
 # content_json = {
 #     "msgtype": "news",
@@ -29,20 +31,20 @@ file_path = "D:/sample.json"
 #     }
 # }
 
-content_json ={
-    "msgtype": "markdown",
-    "markdown": {
-        "content": "测试markdown<font color=\"warning\">xxx例</font>，请相关同事注意。\n \
-         类型:<font color=\"comment\">用户反馈</font> \n \
-         普通用户反馈:<font color=\"comment\">ssss例</font> \n \
-         VIP用户反馈:<font color=\"comment\">1sss例</font>"
-    }
-}
+# content_json ={
+#     "msgtype": "markdown",
+#     "markdown": {
+#         "content": "测试markdown<font color=\"warning\">xxx例</font>，请相关同事注意。\n \
+#          类型:<font color=\"comment\">用户反馈</font> \n \
+#          普通用户反馈:<font color=\"comment\">ssss例</font> \n \
+#          VIP用户反馈:<font color=\"comment\">1sss例</font>"
+#     }
+# }
 
 with open(file_path, "w") as f:
     f.write(json.dumps(content_json))
 
-call(
+os.system(
     u'curl "{0}" -H "{1}" -d@"{2}"'.format(url, ua, file_path))
 
 os.remove(file_path)
