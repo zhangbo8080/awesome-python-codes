@@ -25,7 +25,7 @@ def is_server(add_version):
     username = "autotestsns"
     password = "Welcome2sohu!"
     jira = JIRA('http://jira.sohuno.com/', basic_auth=(username, password))
-    jql_open_bug = "project in (HUYOU) AND component in (MVP_服务端, MVP_OP后台, MVP_数据后台, MVP_M4后台) AND issuetype = Bug AND status in (Open, 'In Progress', Reopened, 延期处理) ORDER BY createdDate DESC"
+    jql_open_bug = "project in (HUYOU) AND component in (MVP_服务端, MVP_OP后台, MVP_数据后台) AND issuetype = Bug AND status in (Open, 'In Progress', Reopened, 延期处理) ORDER BY createdDate DESC"
     issues_open_bug = jira.search_issues(jql_open_bug, maxResults=1000)
 
     for x in issues_open_bug:
@@ -37,6 +37,6 @@ def is_server(add_version):
 
 
 if '__main__' == __name__:
-    add_version = 'v5.4.0'
+    add_version = 'v5.7.0'
     is_not_server(add_version)
     is_server(add_version)
