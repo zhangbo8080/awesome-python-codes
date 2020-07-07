@@ -30,6 +30,6 @@ def main(start_data):
 
 if '__main__' == __name__:
 
-    start_data = "2020-04-23"
+    start_data = "2020-06-11"
     print("当前版本有效BUG数")
     main(start_data)
