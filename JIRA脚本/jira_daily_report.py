@@ -154,7 +154,7 @@ def order_by_priority(issues_list):
 
 # 生成狐友项目jira的JQL
 def generate_jql(jira, members):
-    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台) AND issuetype = Bug AND assignee in ({}) AND status in (Open, 'In Progress', Reopened)".format(
+    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND assignee in ({}) AND status in (Open, 'In Progress', Reopened)".format(
         members)
     issues_list = jira.search_issues(jql, maxResults=1000)
     issues_order_by_priority = order_by_priority(issues_list)
@@ -189,7 +189,7 @@ def main(version, date_start):
                              defect_date_detail=defect_date_detail
                              )
 
-    with open("D:/daily_bug.html", "w", encoding="utf-8") as f:
+    with open("C:/Users/bozhang213817/Desktop/daily_bug.html", "w", encoding="utf-8") as f:
         f.write(output)
 
     # try:

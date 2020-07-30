@@ -9,7 +9,7 @@ import redis
 
 # 生成狐友项目jira的JQL
 def generate_jql_list(jira, members):
-    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台) AND issuetype = Bug AND assignee in ({}) AND status in (Open, 'In Progress', Reopened)".format(
+    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND assignee in ({}) AND status in (Open, 'In Progress', Reopened)".format(
         members)
     issues_list = jira.search_issues(jql, maxResults=1000)
 
@@ -58,11 +58,11 @@ def jira_daily_defects_2redis():
     # 项目组JQL
     issues_project = generate_jql_list(jira, 'membersOf(6-spc-pm)')
 
-    jql_created_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台) AND issuetype = Bug AND created >= {}".format(
+    jql_created_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND created >= {}".format(
         current_date)
-    jql_resolved_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台) AND issuetype = Bug AND resolved >= {}".format(
+    jql_resolved_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND resolved >= {}".format(
         current_date)
-    jql_opening = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台) AND issuetype = Bug AND status in (Open, 'In Progress', Reopened) " \
+    jql_opening = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND status in (Open, 'In Progress', Reopened) " \
                   "AND assignee in (membersOf(6-spc-pm),membersOf(6-spc-ux),membersOf(6-spc-project),membersOf(6-spc-test),membersOf(6-spc-hydata),membersOf(6-spc-audit),membersOf(6-spc-op),membersOf(6-spc-dm),membersOf(6-spc-cs),membersOf(6-spc-fe),membersOf(6-spc-ios),membersOf(6-spc-android))"
 
     a_opening = jira.search_issues(jql_opening, maxResults=1000)
