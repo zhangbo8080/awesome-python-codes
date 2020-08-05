@@ -9,7 +9,7 @@ import xlwt
 
 def generate_jira_rawdata(jql):
     username = "bozhang213817"
-    password = "Benson@007"
+    password = "Benson@009"
 
     jira = JIRA('http://jira.sohuno.com/', basic_auth=(username, password))
 
@@ -117,12 +117,12 @@ def generate_jira_rawdata(jql):
 
         row = row + 1
 
-    workbook.save(r'D:\jirarawdata.xls')
+    workbook.save(r'C:\Users\bozhang213817\work\jirarawdata.xls')
 
 
 if '__main__' == __name__:
     # HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH
 
-    jql = 'project in (HUYOUIOS, HUYOUANDROID, SNSHH, HUYOU) AND issuetype = Bug AND component not in (MVP_M4后台, 内容分析平台) AND created >= 2020-4-3 AND created <= 2020-12-29'
+    jql = 'project in (HUYOUIOS, HUYOUANDROID, SNSHH, HUYOU) AND issuetype = Bug AND component not in (MVP_M4后台, 超级玛丽) AND created >= 2020-07-02 AND created <= 2020-07-28'
 
     generate_jira_rawdata(jql)

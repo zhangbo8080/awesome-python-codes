@@ -17,6 +17,8 @@ import smtplib
 import nacos
 import yaml
 
+component_not_supported = "MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心"
+
 
 # 从nacos获取日报配置
 def get_daily_report_config():
@@ -154,8 +156,8 @@ def order_by_priority(issues_list):
 
 # 生成狐友项目jira的JQL
 def generate_jql(jira, members):
-    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND assignee in ({}) AND status in (Open, 'In Progress', Reopened)".format(
-        members)
+    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in ({0}) AND issuetype = Bug AND assignee in ({1}) AND status in (Open, 'In Progress', Reopened)".format(
+        component_not_supported, members)
     issues_list = jira.search_issues(jql, maxResults=1000)
     issues_order_by_priority = order_by_priority(issues_list)
     return issues_order_by_priority

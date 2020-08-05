@@ -7,7 +7,7 @@ from jira import JIRA
 
 def submit_cr(project=None, summary=None):
     username = "bozhang213817"
-    password = "Benson@007"
+    password = "Benson@009"
     jira = JIRA('http://jira.sohuno.com/', basic_auth=(username, password))
     # HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH
     issue_dict = {'project': project, 'issuetype': '测试任务', 'summary': summary,
@@ -30,7 +30,7 @@ if '__main__' == __name__:
 
     project_list = ["HUYOUANDROID","HUYOUIOS"]
 
-    summary = "涂脂抹粉 - UI验收"
+    summary = "处CP - 交互验收"
 
     for project in project_list:
         submit_cr(project, summary)

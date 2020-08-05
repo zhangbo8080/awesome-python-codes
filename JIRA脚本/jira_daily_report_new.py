@@ -13,9 +13,12 @@ from email.header import Header
 from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
 from JIRA脚本.jira_daiy_defect_2redis import jira_daily_defects_2redis
+from JIRA脚本.jira_daiy_defect_2redis import wiki_requirement_changed_times_2redis
 import smtplib
 import nacos
 import yaml
+from confluence.client import Confluence
+from collections import deque
 
 component_not_supported = "MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心"
 
@@ -96,6 +99,42 @@ def get_date_detail_list(old=None):
     return date_redis_list
 
 
+def get_main_requirement_status(requirement_pageid_list):
+    username = "bozhang213817"
+    password = "Benson@009"
+    main_projects_status_list = deque()
+    # 从nacos获取日报配置
+
+    current_date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+    r = redis.Redis(host='mb.y.redis.sohucs.com', port=22939, password="b87418ff6e92b4db923e71b3eeaf9d7c", db=7)
+    for page_id in requirement_pageid_list:
+        # 获取版本的wiki数据
+        main_projects_status = {}
+        confluence = Confluence('http://wiki.sohu-inc.com', (username, password))
+        content = confluence.get_content_by_id(page_id)
+        r.hset("{}".format(page_id), "projects_version_latest", "{}".format(content.version))
+        main_projects_status = {
+            "projects_name": r.hget("{}".format(page_id), "projects_name").decode(),
+            "planned_testable_date": r.hget("{}".format(page_id), "planned_testable_date").decode(),
+            "actual_testable_date": r.hget("{}".format(page_id), "actual_testable_date").decode(),
+            "requirement_updated_times": "NA",
+            "testable_status": "开发中"
+
+        }
+        if r.hget("{}".format(page_id), "actual_testable_date").decode() != "NA":
+            main_projects_status["testable_status"] = "测试中"
+            projects_testable_version = r.hget("{}".format(page_id), "projects_testable_version").decode()
+            projects_version_latest = r.hget("{}".format(page_id), "projects_version_latest").decode()
+            main_projects_status["requirement_updated_times"] = int(projects_version_latest) - int(
+                projects_testable_version)
+            main_projects_status_list.appendleft(main_projects_status)
+        else:
+
+            main_projects_status_list.append(main_projects_status)
+
+    return main_projects_status_list
+
+
 def get_date_list(old=None):
     current_date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
     # current_date = "2019-08-04"
@@ -163,7 +202,7 @@ def generate_jql(jira, members):
     return issues_order_by_priority
 
 
-def main(version, date_start):
+def main(version, date_start, requirement_pageid_list):
     username = "autotestsns"
     password = "Welcome2sohu!"
     # current_date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
@@ -174,6 +213,7 @@ def main(version, date_start):
     template = env.get_template('mailcontent_daily_report_new.html')
     defect_date_count = get_date_list(date_start)
     defect_date_detail = get_date_detail_list(date_start)
+    main_projects_status = get_main_requirement_status(requirement_pageid_list)
     output = template.render(board_name="狐友{}".format(version),
                              issues_android=generate_jql(jira, 'membersOf(6-spc-android)'),
                              issues_iOS=generate_jql(jira, 'membersOf(6-spc-ios)'),
@@ -188,7 +228,8 @@ def main(version, date_start):
                              issues_ux=generate_jql(jira, 'membersOf(6-spc-ux)'),
                              issues_project=generate_jql(jira, 'membersOf(6-spc-pm)'),
                              defect_date_count=defect_date_count,
-                             defect_date_detail=defect_date_detail
+                             defect_date_detail=defect_date_detail,
+                             main_projects_status=main_projects_status
                              )
 
     with open("C:/Users/bozhang213817/Desktop/daily_bug_new.html", "w", encoding="utf-8") as f:
@@ -205,9 +246,12 @@ if '__main__' == __name__:
     daily_report_config = get_daily_report_config()
 
     version = daily_report_config["version"]
+    requirement_pageid_list = daily_report_config["requirement_pageid_list"]
 
     date_start = daily_report_config["date_start"].strftime("%Y-%m-%d")
 
     jira_daily_defects_2redis()
 
-    main(version, date_start)
+    wiki_requirement_changed_times_2redis()
+
+    main(version, date_start, requirement_pageid_list)

@@ -39,7 +39,7 @@ def get_wiki_requirement_detail(pageid):
 
     pageid_details_dict["projects_name"] = content.title
     pageid_details_dict["planned_testable_date"] = "planned_testable_date"
-    pageid_details_dict["actual_testable_date"] = "actual_testable_date"
+    pageid_details_dict["actual_testable_date"] = "NA"
     pageid_details_dict["projects_version"] = content.version
     pageid_details_dict["projects_pageid"] = pageid
     pageid_details_dict["projects_author"] = content.history.author

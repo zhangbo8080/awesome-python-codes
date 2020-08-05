@@ -1,19 +1,52 @@
 # -*- coding: utf-8 -*-
 # __Author__='Zhangbo'
 # __Time__='2019-07-29 11:00'
-
+import nacos
+import yaml
 from jira import JIRA
 import time
 import redis
+from confluence.client import Confluence
+
+component_not_supported = "MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心"
 
 
 # 生成狐友项目jira的JQL
 def generate_jql_list(jira, members):
-    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND assignee in ({}) AND status in (Open, 'In Progress', Reopened)".format(
-        members)
+    jql = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in ({0}) AND issuetype = Bug AND assignee in ({1}) AND status in (Open, 'In Progress', Reopened)".format(
+        component_not_supported, members)
     issues_list = jira.search_issues(jql, maxResults=1000)
 
     return issues_list
+
+
+def wiki_requirement_changed_times_2redis():
+    username = "bozhang213817"
+    password = "Benson@009"
+    # 从nacos获取日报配置
+    SERVER_ADDRESSES = "op-test.sns.sohuno.com:80"
+    NAMESPACE = "9eae126d-3501-4100-b577-baa2eaeed8ea"
+
+    client = nacos.NacosClient(SERVER_ADDRESSES, namespace=NAMESPACE)
+
+    # get config
+    data_id = "daily_report_config"
+    group = "DEFAULT_GROUP"
+    daily_report_yaml = client.get_config(data_id, group)
+
+    daily_report_config = yaml.load(daily_report_yaml, Loader=yaml.FullLoader)
+
+    requirement_pageid_list = daily_report_config["requirement_pageid_list"]
+
+    # 更新需求的版本号
+    current_date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
+    r = redis.Redis(host='mb.y.redis.sohucs.com', port=22939, password="b87418ff6e92b4db923e71b3eeaf9d7c", db=7)
+    for page_id in requirement_pageid_list:
+        # 获取版本的wiki数据
+
+        confluence = Confluence('http://wiki.sohu-inc.com', (username, password))
+        content = confluence.get_content_by_id(page_id)
+        r.hset("{}".format(page_id), "projects_version_latest", "{}".format(content.version))
 
 
 def jira_daily_defects_2redis():
@@ -58,12 +91,13 @@ def jira_daily_defects_2redis():
     # 项目组JQL
     issues_project = generate_jql_list(jira, 'membersOf(6-spc-pm)')
 
-    jql_created_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND created >= {}".format(
-        current_date)
-    jql_resolved_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND resolved >= {}".format(
-        current_date)
-    jql_opening = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in (MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心) AND issuetype = Bug AND status in (Open, 'In Progress', Reopened) " \
-                  "AND assignee in (membersOf(6-spc-pm),membersOf(6-spc-ux),membersOf(6-spc-project),membersOf(6-spc-test),membersOf(6-spc-hydata),membersOf(6-spc-audit),membersOf(6-spc-op),membersOf(6-spc-dm),membersOf(6-spc-cs),membersOf(6-spc-fe),membersOf(6-spc-ios),membersOf(6-spc-android))"
+    jql_created_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in ({0}) AND issuetype = Bug AND created >= {1}".format(
+        component_not_supported, current_date)
+    jql_resolved_in_day = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in ({0}) AND issuetype = Bug AND resolved >= {1}".format(
+        component_not_supported, current_date)
+    jql_opening = "project in (HUYOUANDROID, HUYOUIOS, HUYOU, SNSHH) AND component not in ({0}) AND issuetype = Bug AND status in (Open, 'In Progress', Reopened) " \
+                  "AND assignee in (membersOf(6-spc-pm),membersOf(6-spc-ux),membersOf(6-spc-project),membersOf(6-spc-test),membersOf(6-spc-hydata),membersOf(6-spc-audit),membersOf(6-spc-op),membersOf(6-spc-dm),membersOf(6-spc-cs),membersOf(6-spc-fe),membersOf(6-spc-ios),membersOf(6-spc-android))".format(
+        component_not_supported)
 
     a_opening = jira.search_issues(jql_opening, maxResults=1000)
     a_created_inday = jira.search_issues(jql_created_in_day, maxResults=1000)

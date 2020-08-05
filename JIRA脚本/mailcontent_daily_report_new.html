@@ -18,9 +18,64 @@
 		</div>
 	</div>
 	<br>
+	{% if main_projects_status %}
+	<div class="row-fluid">
+		<div class="span5">
+			<p>
+				<strong> 主要需求测试进度</strong>
+			</p>
+			<table border="1" cellpadding="0" cellspacing="0" rules="all" class="table table-condensed">
+				<thead>
+				<tr>
+					<th nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						需求名称
+					</th>
+					<th nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						计划提测时间
+					</th>
+					<th nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						实际提测时间
+					</th>
+					<th nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						提测后需求修改次数
+					</th>
+					<th nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						当前状态
+					</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for project in main_projects_status %}
+				<tr class="error">
+					<td nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						{{project.projects_name}}
+					</td>
+					<td nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						{{project.planned_testable_date}}
+					</td>
+					<td nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						{{project.actual_testable_date}}
+					</td>
+					<td nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						{{project.requirement_updated_times}}
+					</td>
+					<td nowrap="nowrap" style="text-align:left;vertical-align:middle;">
+						{{project.testable_status}}
+					</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<br>
+	{% endif %}
 	{% if defect_date_count %}
 	<div class="row-fluid">
 		<div class="span5">
+			<p>
+				<strong> 截止到目前的BUG状态</strong>
+			</p>
 			<table border="1" cellpadding="0" cellspacing="0" rules="all" class="table table-condensed">
 				<thead>
 				<tr>
@@ -48,15 +103,12 @@
 					<th nowrap="nowrap" style="text-align:left;vertical-align:middle;">
 						App打包成功率
 					</th>
-					<th nowrap="nowrap" style="text-align:left;vertical-align:middle;">
-						已提测需求<br>当日变更次数
-					</th>
 				</tr>
 				</thead>
 				<tbody>
 				{% for issue in defect_date_count %}
 				<tr class="error">
-					<td style="text-align:left;vertical-align:middle;">
+					<td nowrap="nowrap" style="text-align:left;vertical-align:middle;">
 						{{issue.date}}
 					</td>
 					<td style="text-align:left;vertical-align:middle;">
@@ -80,9 +132,6 @@
 					<td style="text-align:left;vertical-align:middle;">
 						100%
 					</td>
-					<td style="text-align:left;vertical-align:middle;">
-						100%
-					</td>
 				</tr>
 				{% endfor %}
 				</tbody>
@@ -91,7 +140,8 @@
 	</div>
 	<br>
 	{% endif %}
-	{% if defect_date_detail %}
+	
+	{% if main_projects_status %}
 	<div class="row-fluid">
 		<div class="span8">
 			<p>
@@ -146,7 +196,7 @@
 				<tbody>
 				{% for issue in defect_date_detail %}
 				<tr class="error">
-					<td style="text-align:left;vertical-align:middle;">
+					<td nowrap="nowrap" style="text-align:left;vertical-align:middle;">
 						{{issue.date}}
 					</td>
 					<td style="text-align:left;vertical-align:middle;">
