@@ -11,8 +11,6 @@ import jenkins
 from datetime import datetime
 from confluence.client import Confluence
 
-component_not_supported = "MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心"
-
 
 # 生成狐友项目jira的JQL
 def generate_jql_list(jira, members):
@@ -110,6 +108,7 @@ def jira_daily_defects_2redis():
 
     closed_rate = cal_closed_rate(closebug_list, allbug_list)
 
+    # 存redis
     r = redis.Redis(host='mb.y.redis.sohucs.com', port=22939, password="b87418ff6e92b4db923e71b3eeaf9d7c", db=4)
 
     r.hset("{}".format(current_date), "a_opening", "{}".format(len(a_opening)))
@@ -267,6 +266,7 @@ def wiki_requirement_changed_times_2redis():
 
 
 if '__main__' == __name__:
+    component_not_supported = "MVP_M4后台, 内容分析平台, 超级玛丽, Data_蚁群中心"
     jira_daily_defects_2redis()
     jenkins_CI_success_rate_2redis()
     wiki_requirement_changed_times_2redis()
