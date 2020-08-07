@@ -14,6 +14,7 @@ from email.mime.text import MIMEText
 from email.utils import parseaddr, formataddr
 from JIRA脚本.jira_daiy_defect_2redis import jira_daily_defects_2redis
 from JIRA脚本.jira_daiy_defect_2redis import wiki_requirement_changed_times_2redis
+from JIRA脚本.jira_daiy_defect_2redis import jenkins_CI_success_rate_2redis
 import smtplib
 import nacos
 import yaml
@@ -125,8 +126,8 @@ def get_main_requirement_status(requirement_pageid_list):
             main_projects_status["testable_status"] = "测试中"
             projects_testable_version = r.hget("{}".format(page_id), "projects_testable_version").decode()
             projects_version_latest = r.hget("{}".format(page_id), "projects_version_latest").decode()
-            main_projects_status["requirement_updated_times"] = int(projects_version_latest) - int(
-                projects_testable_version)
+            main_projects_status["requirement_updated_times"] = "{}".format(int(projects_version_latest) - int(
+                projects_testable_version))
             main_projects_status_list.appendleft(main_projects_status)
         else:
 
@@ -160,6 +161,11 @@ def get_date_list(old=None):
                 "a_opening": r.hget("{}".format(y), "a_opening").decode(),
                 "a_created_inday": r.hget("{}".format(y), "a_created_inday").decode(),
                 "a_resolved_inday": r.hget("{}".format(y), "a_resolved_inday").decode(),
+                "android_dev": r.hget("{}".format(y), "android_dev").decode(),
+                "ios_dev": r.hget("{}".format(y), "ios_dev").decode(),
+                "bug_close_rate": r.hget("{}".format(y), "bug_close_rate").decode(),
+                "bug_daily_fix_rate": r.hget("{}".format(y), "bug_daily_fix_rate").decode(),
+
             }
             date_redis_list.appendleft(date_redis_dict)
 
@@ -253,5 +259,7 @@ if '__main__' == __name__:
     jira_daily_defects_2redis()
 
     wiki_requirement_changed_times_2redis()
+
+    jenkins_CI_success_rate_2redis()
 
     main(version, date_start, requirement_pageid_list)
