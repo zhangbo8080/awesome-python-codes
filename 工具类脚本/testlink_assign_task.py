@@ -21,14 +21,14 @@ def getExternalidlist(tlc):
     return external_id_list
 
 
-def getTestplanid(tlc, hy_version):
+def getTestplanid(tlc, test_plan):
     testplanid = ""
     # 根据项目名称获取项目id
     ProjectID = tlc.getProjectIDByName("hy回归测试用例")
     # 根据项目id获取testplanid
     ProjectTestPlans = tlc.getProjectTestPlans(ProjectID)
     for x in ProjectTestPlans:
-        if x["name"] == hy_version:
+        if x["name"] == test_plan:
             testplanid = x["id"]
             break
         else:
@@ -39,8 +39,6 @@ def getTestplanid(tlc, hy_version):
 def assignTestCaseExecutionTask(testpalneid, buildname, external_id_list, tester_list):
     external_id_list_len = len(external_id_list)
     tester_list_len = len(tester_list)
-    print(external_id_list_len)
-    print(tester_list_len)
     for x in range(0, external_id_list_len):
         testcaseexternalid = external_id_list[x]
         user = tester_list[x % tester_list_len]
@@ -49,9 +47,10 @@ def assignTestCaseExecutionTask(testpalneid, buildname, external_id_list, tester
 
 
 if __name__ == "__main__":
-    hy_version = "v5.9.5"
-    tester_list = ["zhangbo", "duhan", "leishuying", "xuqun", "liangzhuojie"]
+    test_plan = "回归测试" #测试计划
+    buildname = "v5.9.5" # 测试版本
+    tester_list = ["zhangbo", "duhan", "leishuying", "xuqun", "liangzhuojie"] # 测试人员列表
     tlc = ini_tlc()
-    testpalneid = getTestplanid(tlc, hy_version)
-    external_id_list = getExternalidlist(tlc)
-    assignTestCaseExecutionTask(testpalneid, hy_version, external_id_list, tester_list)
+    testpalneid = getTestplanid(tlc, test_plan) # 获取测试计划的id
+    external_id_list = getExternalidlist(tlc) # 获取测试计划的用例id列表
+    assignTestCaseExecutionTask(testpalneid, buildname, external_id_list, tester_list) # 分配测试用例
