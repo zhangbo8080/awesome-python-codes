@@ -3,12 +3,12 @@
 # __Time__='2020/10/9 17:34'
 import testlink
 
+
 def ini_tlc():
     # 连接test link
     url = "http://testlink.sns.sohuno.com/lib/api/xmlrpc/v1/xmlrpc.php"
     key = "02c4e9d7a24db1e42b315e4ba2821248"
     tlc = testlink.TestlinkAPIClient(url, key)
-    # print(tlc)
     return tlc
 
 
