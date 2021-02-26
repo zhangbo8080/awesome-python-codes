@@ -15,7 +15,7 @@ from confluence.client import Confluence
 # 将版本对应的主需求的wiki数据初始化到redis存储
 def wiki_requirement_details_2redis(pageid_details_dict):
     current_date = time.strftime("%Y-%m-%d", time.localtime(time.time()))
-    r = redis.Redis(host='mb.y.redis.sohucs.com', port=22939, password="b87418ff6e92b4db923e71b3eeaf9d7c", db=7)
+    r = redis.Redis(host='xxxx', port=xxxx, password="xxx", db=xxx)
     page_id = pageid_details_dict["projects_pageid"]
     r.hset("{}".format(page_id), "projects_pageid", "{}".format(page_id))
     r.hset("{}".format(page_id), "projects_name", "{}".format(pageid_details_dict["projects_name"]))
@@ -49,8 +49,8 @@ def get_wiki_requirement_detail(pageid):
 
 # 从nacos获取日报配置
 def get_daily_report_config():
-    SERVER_ADDRESSES = "op-test.sns.sohuno.com:80"
-    NAMESPACE = "9eae126d-3501-4100-b577-baa2eaeed8ea"
+    SERVER_ADDRESSES = "xxxx"
+    NAMESPACE = "xxxa"
 
     client = nacos.NacosClient(SERVER_ADDRESSES, namespace=NAMESPACE)
 
