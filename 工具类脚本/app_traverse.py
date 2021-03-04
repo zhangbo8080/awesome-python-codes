@@ -97,13 +97,14 @@ def send_notification():
 if '__main__' == __name__:
     package_name = 'com.sohu.sohuhy.dev'
 
-    running_minutes = 5
+    running_minutes = 30
 
     throttle = 1000
 
     devicesid_list = get_connected_devices_list()
 
     thread_list = []
+
     for device_id in devicesid_list:
         p = threading.Thread(target=traversal_monkey, args=(device_id, package_name, running_minutes, throttle))
         thread_list.append(p)

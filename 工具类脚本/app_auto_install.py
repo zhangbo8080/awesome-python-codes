@@ -6,6 +6,7 @@ import requests
 import os
 import re
 import threading
+import time
 
 
 # 从jenkins上获取最新的apk地址
@@ -48,7 +49,20 @@ def get_connected_devices_list():
     return devicesid_list
 
 
+def check_devices_status(device_id):
+    devices_status_info = os.popen('adb -s {0} shell dumpsys window policy'.format(device_id)).readlines()
+
+    for x in devices_status_info:
+        if 'mScreenOnEarly=false' in x:
+            os.system('adb -s {0} shell input keyevent 26'.format(device_id))
+            break
+        else:
+            pass
+
+
 def get_adb_install(device_id, file_path):
+    check_devices_status(device_id)
+    time.sleep(1)
     os.system('adb -s {0} install -r {1}'.format(device_id, file_path))
 
 
