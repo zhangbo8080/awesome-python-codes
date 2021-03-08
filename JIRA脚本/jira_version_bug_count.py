@@ -10,14 +10,13 @@ def main(start_data):
     password = "Welcome2sohu!"
     jira = JIRA('http://jira.sohuno.com/', basic_auth=(username, password))
 
-    jql_bug_count = "project in (SNSHH, HUYOUIOS, HUYOUANDROID, HUYOU) " \
+    jql_bug_count = "project in (SNSHH, HUYOUIOS, HUYOUANDROID, HUYOU, SNSMY,SNSM4) " \
                     "AND issuetype = Bug AND status = Closed " \
                     "AND resolution = Fixed " \
-                    "AND component not in (内容分析平台) " \
                     "AND reporter in (membersOf(6-spc-test))" \
                     "AND created >= {} " \
                     "ORDER BY createdDate DESC".format(start_data)
-    # print(jql_bug_count)
+    # , 超级玛丽, MVP_M4后台
     issues_resolved_bug = jira.search_issues(jql_bug_count, maxResults=1000)
     reporter_list = []
     for x in issues_resolved_bug:
@@ -30,6 +29,6 @@ def main(start_data):
 
 if '__main__' == __name__:
 
-    start_data = "2020-07-14"
+    start_data = "2021-02-25"
     print("当前版本有效BUG数")
     main(start_data)
